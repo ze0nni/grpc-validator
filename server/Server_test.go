@@ -28,3 +28,24 @@ func TestValidateSuccesForEmptyMap(t *testing.T) {
 	assert.NoError(t, err)
 	assert.True(t, res.GetSuccess())
 }
+
+func TestSuccesForFiltersKeyNotContaintsStructKeys(t *testing.T) {
+	s := NewValidatorServer()
+
+	strt := &api.Struct{
+		Foo: "foo",
+		Bar: "bar",
+		Baz: "baz",
+	}
+	filter := make(map[string]string)
+	filter["bat"] = "bat"
+
+	req := &api.ValidateRequest{
+		Struct: strt,
+		Filter: filter,
+	}
+	res, err := s.A(nil, req)
+
+	assert.NoError(t, err)
+	assert.True(t, res.GetSuccess())
+}
