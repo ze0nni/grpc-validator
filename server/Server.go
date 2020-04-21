@@ -15,6 +15,18 @@ type server struct {
 }
 
 func (server) A(ctx context.Context, in *api.ValidateRequest) (*api.ValidateResult, error) {
+	strt := in.GetStruct()
+	for k, v := range in.GetFilter() {
+		if ("foo" == k && strt.Foo != v) ||
+			("bar" == k && strt.Bar != v) ||
+			("baz" == k && strt.Baz != v) {
+
+			return &api.ValidateResult{
+				Success: false,
+			}, nil
+		}
+	}
+
 	return &api.ValidateResult{
 		Success: true,
 	}, nil
