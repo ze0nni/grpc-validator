@@ -14,6 +14,8 @@ func NewValidatorServer() api.ValidatorServer {
 type server struct {
 }
 
-func (server) A(context.Context, *api.ValidateRequest) (*api.ValidateResult, error) {
-	panic("not implements")
+func (server) A(ctx context.Context, in *api.ValidateRequest) (*api.ValidateResult, error) {
+	return &api.ValidateResult{
+		Success: true,
+	}, nil
 }
